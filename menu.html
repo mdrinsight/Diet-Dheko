@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diet Dheko — Weekly Menu</title>
+
+  <!-- Google Fonts: Montserrat & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS via CDN with customized theme config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            porcelain: '#fdfdfd',
+            dragonfruit: '#ff2a85',
+            cosmic: '#0052ff',
+            amethyst: '#7000ff',
+          },
+          fontFamily: {
+            montserrat: ['Montserrat', 'sans-serif'],
+            jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          animation: {
+            'marquee': 'marquee 25s linear infinite',
+            'pulse-subtle': 'pulseSubtle 4s ease-in-out infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            pulseSubtle: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
+              '50%': { transform: 'scale(1.05)', opacity: '0.95' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP & GSAP ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* Absolute Base Styling */
+    body {
+      background-color: #fdfdfd;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Hardware Accelerated Layers */
+    .hardware-layer {
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+
+    /* Ambient Canvas/Mesh Blob CSS Fallbacks */
+    .ambient-blob {
+      filter: blur(140px);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      will-change: transform;
+      opacity: 0.45;
+    }
+
+    /* High-End Liquid Glass Specifications */
+    .liquid-glass {
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(45px);
+      -webkit-backdrop-filter: blur(45px);
+      box-shadow: 0 15px 45px rgba(0, 82, 255, 0.02), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+      border-radius: 24px; /* Tighter radius for compact fit */
+      transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .liquid-glass:hover {
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #fdfdfd;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #cbd5e1;
+    }
+
+    /* Hide scrollbar for horizontal scrolling containers */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Interactive Preference Button Active Glow State */
+    .pref-btn.glow-active {
+      background: linear-gradient(to right, #ff2a85, #7000ff);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 20px rgba(255, 42, 133, 0.4), 0 0 15px rgba(112, 0, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    /* ==========================================================================
+       MOBILE ONLY OVERRIDES (Strictly matches DNA & Unlocks Scrolling)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* UNLOCK MOBILE SCROLLING */
+      body {
+        height: auto !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        display: block !important;
+      }
+      main {
+        height: auto !important;
+        display: block !important;
+        padding-top: 6rem !important;
+      }
+
+      /* Header Nav Compressions */
+      header nav a,
+      header nav button {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      /* Menu Hero Section */
+      #menu-hero {
+        padding-top: 1rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+      
+      /* STRICT SINGLE LINE ENFORCEMENT FOR ALL TEXT ROWS */
+      .mobile-single-line {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+      
+      /* Swipeable Text Containers for long descriptions to maintain single line rule */
+      .swipe-text-container {
+        width: 100% !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        padding-bottom: 0.25rem !important;
+      }
+      .swipe-text-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      #menu-headline {
+        font-size: clamp(18px, 5vw, 24px) !important;
+        line-height: 1.25 !important;
+        margin-bottom: 0.75rem !important;
+      }
+      #menu-desc {
+        font-size: clamp(10px, 3vw, 12px) !important;
+        line-height: 1.5 !important;
+        padding: 0 1rem !important;
+        margin-bottom: 1rem !important;
+      }
+
+      /* Menu Grid & Cards Compression */
+      #menu-grid {
+        gap: 1rem !important;
+        padding: 0 1rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      .menu-card {
+        padding: 1.25rem !important;
+        border-radius: 24px !important;
+        width: 100% !important;
+      }
+      .menu-card h3 {
+        font-size: clamp(16px, 5vw, 20px) !important;
+        margin-bottom: 0.5rem !important;
+      }
+      .menu-card p.desc {
+        font-size: clamp(10px, 3vw, 11px) !important;
+        line-height: 1.4 !important;
+        margin-bottom: 1rem !important;
+      }
+      .menu-card ul li {
+        font-size: 9px !important;
+        margin-bottom: 0.5rem !important;
+      }
+      
+      /* Preferences & Delivery - Strict Single Line with Horizontal Swipe */
+      .section-title {
+        font-size: clamp(14px, 4.5vw, 18px) !important;
+        margin-bottom: 0.75rem !important;
+      }
+      .swipe-container {
+        gap: 0.5rem !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        padding-bottom: 0.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        justify-content: flex-start !important;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .swipe-container::-webkit-scrollbar {
+        display: none;
+      }
+      
+      /* FIX: Center the preference buttons specifically on mobile */
+      .pref-container {
+        justify-content: center !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      .pref-btn, .delivery-badge {
+        font-size: 10px !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 8px !important;
+        flex: 0 0 auto !important; /* Prevents squishing */
+      }
+      .pref-subtext, .delivery-subtext {
+        font-size: 9px !important;
+        margin-top: 0.5rem !important;
+        padding: 0 1rem !important;
+      }
+
+      /* CTA Gate */
+      #cta-gate {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+        padding: 0 1rem !important;
+      }
+      .cta-header {
+        font-size: clamp(16px, 5vw, 20px) !important;
+        margin-bottom: 0.5rem !important;
+      }
+      .cta-label {
+        font-size: 10px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 1rem !important;
+      }
+      .cta-btn {
+        font-size: 11px !important;
+        padding: 0.75rem 1.5rem !important;
+      }
+    }
+  </style>
+</head>
+<body class="relative text-neutral-800 antialiased selection:bg-dragonfruit selection:text-white h-screen overflow-hidden flex flex-col">
+
+  <!-- ==========================================
+       LAYER Z-0: DEEP BACKGROUND AMBIENT MESH
+       ========================================== -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div id="blob-pink" class="ambient-blob absolute w-[45vw] h-[45vw] rounded-full bg-gradient-to-tr from-dragonfruit to-transparent top-[-10%] left-[-10%]"></div>
+    <div id="blob-blue" class="ambient-blob absolute w-[50vw] h-[50vw] rounded-full bg-gradient-to-tr from-cosmic to-transparent bottom-[10%] right-[-10%]"></div>
+    <div id="blob-purple" class="ambient-blob absolute w-[40vw] h-[40vw] rounded-full bg-gradient-to-tr from-amethyst to-transparent top-[30%] left-[40%]"></div>
+  </div>
+
+  <!-- ==========================================
+       NAV FLOATING TRAY
+       ========================================== -->
+  <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-0 flex justify-center">
+    <nav class="w-full max-w-4xl px-6 py-3 flex items-center justify-between rounded-full bg-white/45 border border-white/80 backdrop-blur-[30px] shadow-[0_10px_35px_rgba(0,0,0,0.02)] transition-all duration-300">
+      <a href="index.html" class="font-montserrat font-black tracking-widest text-base bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic bg-clip-text text-transparent hover:opacity-80 transition-opacity mobile-single-line">
+        DIET DHEKO
+      </a>
+      <div class="hidden md:flex items-center gap-8 font-jakarta text-xs font-semibold text-neutral-600">
+        <a href="index.html#highlights-section" class="hover:text-dragonfruit transition-colors">Manifesto</a>
+        <a href="index.html#why-choose-us" class="hover:text-dragonfruit transition-colors">Core Factors</a>
+        <a href="index.html#testimonials" class="hover:text-dragonfruit transition-colors">Testimonials</a>
+      </div>
+      <div>
+        <a href="#cta-gate" class="px-4 py-2 rounded-full bg-neutral-900 text-white font-jakarta text-[10px] font-bold tracking-wider uppercase hover:bg-neutral-800 transition-all duration-300 hover:scale-105 mobile-single-line">
+          Get Started
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==========================================
+       MAIN WRAPPER (DESKTOP SINGLE SCREEN FIT)
+       ========================================== -->
+  <main class="relative z-10 w-full flex-grow flex flex-col justify-between pt-24 pb-2 overflow-hidden">
+
+    <!-- ==========================================
+         TOP EDITORIAL HEADER SECTION
+         ========================================== -->
+    <section id="menu-hero" class="relative pb-2 px-6 z-30 flex flex-col items-center text-center">
+      <div class="max-w-4xl mx-auto hardware-layer w-full">
+        <h1 id="menu-headline" class="font-montserrat font-black text-xl md:text-2xl lg:text-3xl text-slate-900 tracking-tight mb-1 uppercase mobile-single-line">
+          🍱 Weekly Menu
+        </h1>
+        <div class="swipe-text-container">
+          <p id="menu-desc" class="font-jakarta text-[11px] md:text-xs text-neutral-600 leading-relaxed max-w-3xl mx-auto mobile-single-line">
+            Freshly prepared meals, thoughtfully planned for every day of the week. Our weekly rotating menu is designed to give you the perfect balance of taste, nutrition, and variety. Every meal is portion-controlled, calorie-counted, and prepared using fresh, high-quality ingredients.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SYMMETRICAL 3-COLUMN MEAL WINDOW GRID
+         ========================================== -->
+    <section class="relative z-30 w-full px-4 md:px-6 pb-2 flex-grow flex items-center">
+      <div id="menu-grid" class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
+        
+        <!-- CARD 1: Breakfast -->
+        <div class="menu-card liquid-glass p-4 md:p-5 flex flex-col relative overflow-hidden hardware-layer group">
+          <div class="absolute w-64 h-64 rounded-full bg-gradient-to-tr from-dragonfruit/15 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 -top-10 -right-10"></div>
+          
+          <div class="relative z-10 flex flex-col h-full">
+            <h3 class="font-montserrat font-black text-base md:text-lg text-neutral-900 mb-1 mobile-single-line">🥗 Breakfast</h3>
+            <div class="swipe-text-container mb-2">
+              <p class="desc font-jakarta text-[10px] md:text-[11px] text-neutral-600 leading-snug mobile-single-line">
+                Start your day with a wholesome, nutrient-rich breakfast to keep you energized and satisfied.
+              </p>
+            </div>
+            <ul class="font-jakarta text-[10px] md:text-xs text-neutral-700 space-y-1 flex-grow">
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-dragonfruit"></i> Fresh Salads</li>
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-dragonfruit"></i> Protein-Rich Options</li>
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-dragonfruit"></i> Seasonal Fruits</li>
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-dragonfruit"></i> Healthy Breakfast Specials</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CARD 2: Lunch -->
+        <div class="menu-card liquid-glass p-4 md:p-5 flex flex-col relative overflow-hidden hardware-layer group">
+          <div class="absolute w-64 h-64 rounded-full bg-gradient-to-tr from-cosmic/15 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 -top-10 -right-10"></div>
+          
+          <div class="relative z-10 flex flex-col h-full">
+            <h3 class="font-montserrat font-black text-base md:text-lg text-neutral-900 mb-1 mobile-single-line">🍛 Lunch</h3>
+            <div class="swipe-text-container mb-2">
+              <p class="desc font-jakarta text-[10px] md:text-[11px] text-neutral-600 leading-snug mobile-single-line">
+                Balanced meals with the right combination of protein, carbohydrates, healthy fats, and vegetables to fuel your day.
+              </p>
+            </div>
+            <ul class="font-jakarta text-[10px] md:text-xs text-neutral-700 space-y-1 flex-grow">
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-cosmic"></i> Calories: Clearly Displayed</li>
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-cosmic"></i> Protein: Clearly Displayed</li>
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-cosmic"></i> Carbohydrates: Balanced</li>
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-cosmic"></i> Healthy Fats & Fibre</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CARD 3: Dinner -->
+        <div class="menu-card liquid-glass p-4 md:p-5 flex flex-col relative overflow-hidden hardware-layer group">
+          <div class="absolute w-64 h-64 rounded-full bg-gradient-to-tr from-amethyst/15 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 -top-10 -right-10"></div>
+          
+          <div class="relative z-10 flex flex-col h-full">
+            <h3 class="font-montserrat font-black text-base md:text-lg text-neutral-900 mb-1 mobile-single-line">🌙 Dinner</h3>
+            <div class="swipe-text-container mb-2">
+              <p class="desc font-jakarta text-[10px] md:text-[11px] text-neutral-600 leading-snug mobile-single-line">
+                Light, satisfying meals designed to support recovery, digestion, and overall wellness.
+              </p>
+            </div>
+            <ul class="font-jakarta text-[10px] md:text-xs text-neutral-700 space-y-1 flex-grow">
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-amethyst"></i> Weight Management</li>
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-amethyst"></i> Muscle Recovery</li>
+              <li class="flex items-center gap-2 mobile-single-line"><i class="fa-solid fa-circle-check text-[9px] text-amethyst"></i> Better Digestion</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         INTERACTIVE PREFERENCE & DELIVERY MATRIX
+         ========================================== -->
+    <section class="relative z-30 w-full px-4 md:px-6 pb-2 flex flex-col items-center">
+      
+      <!-- Preferences -->
+      <div class="w-full max-w-4xl text-center mb-3">
+        <h3 class="section-title font-montserrat font-black text-base md:text-lg text-neutral-900 uppercase mb-2 mobile-single-line">🍽 Choose Your Preference</h3>
+        <div class="swipe-container pref-container flex justify-center gap-2">
+          <button class="pref-btn glow-active font-jakarta text-[11px] font-bold px-5 py-1.5 rounded-xl bg-white/60 border border-white/80 text-neutral-700 transition-all duration-300 shadow-sm mobile-single-line">🥬 Veg</button>
+          <button class="pref-btn font-jakarta text-[11px] font-bold px-5 py-1.5 rounded-xl bg-white/60 border border-white/80 text-neutral-700 transition-all duration-300 shadow-sm mobile-single-line">🥚 Egg</button>
+          <button class="pref-btn font-jakarta text-[11px] font-bold px-5 py-1.5 rounded-xl bg-white/60 border border-white/80 text-neutral-700 transition-all duration-300 shadow-sm mobile-single-line">🍗 Chicken</button>
+        </div>
+        <div class="swipe-text-container mt-1.5">
+          <p class="pref-subtext font-jakarta text-[10px] text-neutral-500 mobile-single-line">Select the option that best matches your dietary preference and fitness goal.</p>
+        </div>
+      </div>
+
+      <!-- Delivery Schedule -->
+      <div class="w-full max-w-4xl text-center">
+        <h3 class="section-title font-montserrat font-black text-base md:text-lg text-neutral-900 uppercase mb-2 mobile-single-line">🚚 Delivery Schedule</h3>
+        <div class="swipe-container flex justify-center gap-2">
+          <span class="delivery-badge font-jakarta text-[10px] font-bold px-4 py-1.5 rounded-lg bg-dragonfruit/10 text-dragonfruit border border-dragonfruit/20 mobile-single-line">Breakfast: Morning Delivery</span>
+          <span class="delivery-badge font-jakarta text-[10px] font-bold px-4 py-1.5 rounded-lg bg-cosmic/10 text-cosmic border border-cosmic/20 mobile-single-line">Lunch: Afternoon Delivery</span>
+          <span class="delivery-badge font-jakarta text-[10px] font-bold px-4 py-1.5 rounded-lg bg-amethyst/10 text-amethyst border border-amethyst/20 mobile-single-line">Dinner: Evening Delivery</span>
+        </div>
+        <div class="swipe-text-container mt-1.5">
+          <p class="delivery-subtext font-jakarta text-[10px] text-neutral-500 mobile-single-line">Freshly prepared and delivered on time, every day.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================
+         CALL TO ACTION GATE
+         ========================================== -->
+    <section id="cta-gate" class="relative z-30 w-full text-center pb-2 mt-auto">
+      <h2 class="cta-header font-montserrat font-black text-lg md:text-xl text-neutral-900 uppercase mb-1 mobile-single-line">Ready to Subscribe?</h2>
+      <div class="swipe-text-container mb-3">
+        <p class="cta-label font-jakarta text-[11px] md:text-xs text-neutral-600 max-w-xl mx-auto mobile-single-line">
+          Choose your preferred meals and continue to complete your subscription.
+        </p>
+      </div>
+      <button class="cta-btn group/btn relative inline-block py-2 px-8 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden mobile-single-line">
+        <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[marquee_2s_infinite]"></span>
+        [ Continue → ]
+      </button>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       FOOTER LAYOUT
+       ========================================== -->
+  <footer class="relative z-30 border-t border-neutral-100 bg-white/40 py-2 px-6 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-1 md:gap-6">
+      <div class="font-montserrat font-black tracking-widest text-[10px] bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic bg-clip-text text-transparent mobile-single-line">
+        DIET DHEKO
+      </div>
+      <p class="font-jakarta text-[9px] text-slate-400 mobile-single-line">
+        &copy; 2026 Diet Dheko. All rights carefully reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       GSAP PARALLAX ENGINE & MESH PHYSICS
+       ========================================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ==========================================
+      // PHYSICALLY ALIGNED CURSOR LERP ENGINE (Z-0)
+      // ==========================================
+      const blobPink = document.getElementById("blob-pink");
+      const blobBlue = document.getElementById("blob-blue");
+      const blobPurple = document.getElementById("blob-purple");
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let targetX = mouseX;
+      let targetY = mouseY;
+      let velocityX = 0;
+      let velocityY = 0;
+      let lastMouseX = mouseX;
+      let lastMouseY = mouseY;
+
+      window.addEventListener("mousemove", (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+      }, { passive: true });
+
+      window.addEventListener("touchmove", (e) => {
+        if (e.touches.length > 0) {
+          targetX = e.touches[0].clientX;
+          targetY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      function renderAmbientMesh() {
+        mouseX += (targetX - mouseX) * 0.05;
+        mouseY += (targetY - mouseY) * 0.05;
+
+        velocityX = mouseX - lastMouseX;
+        velocityY = mouseY - lastMouseY;
+        
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+
+        const velocityMag = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+        const deformFactor = 1 + Math.min(velocityMag * 0.005, 0.45);
+        const rotationAngle = Math.min(velocityMag * 0.5, 45);
+
+        gsap.set(blobPink, {
+          x: mouseX * 0.25 - (window.innerWidth * 0.1),
+          y: mouseY * 0.25 - (window.innerHeight * 0.1),
+          scaleX: deformFactor,
+          scaleY: 1 / deformFactor,
+          rotation: rotationAngle,
+          force3D: true
+        });
+
+        gsap.set(blobBlue, {
+          x: -mouseX * 0.15 + (window.innerWidth * 0.05),
+          y: -mouseY * 0.15 + (window.innerHeight * 0.05),
+          scaleX: 1 / deformFactor,
+          scaleY: deformFactor,
+          rotation: -rotationAngle * 0.5,
+          force3D: true
+        });
+
+        gsap.set(blobPurple, {
+          x: mouseX * 0.1 - (window.innerWidth * 0.05),
+          y: -mouseY * 0.1 + (window.innerHeight * 0.1),
+          scale: deformFactor * 0.95,
+          rotation: rotationAngle * 1.2,
+          force3D: true
+        });
+
+        requestAnimationFrame(renderAmbientMesh);
+      }
+      renderAmbientMesh();
+
+      // ==========================================
+      // PRECISE INTRO ENTRANCE TIMELINE
+      // ==========================================
+      const masterTimeline = gsap.timeline();
+
+      gsap.set("header nav", { opacity: 0, y: -80 });
+      gsap.set("#menu-headline", { opacity: 0, y: 30 });
+      gsap.set("#menu-desc", { opacity: 0, y: 30 });
+      gsap.set(".menu-card", { opacity: 0, y: 60, scale: 0.95 });
+      gsap.set(".swipe-container", { opacity: 0, y: 20 });
+      gsap.set("#cta-gate", { opacity: 0, y: 20 });
+
+      masterTimeline.to("header nav", {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power4.out"
+      })
+      .to("#menu-headline", {
+        opacity: 1,
+        y: 0,
+        duration: 1.0,
+        ease: "power3.out"
+      }, "-=0.8")
+      .to("#menu-desc", {
+        opacity: 1,
+        y: 0,
+        duration: 1.0,
+        ease: "power3.out"
+      }, "-=0.6")
+      .to(".menu-card", {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1.2,
+        stagger: 0.15,
+        ease: "back.out(1.2)"
+      }, "-=0.5")
+      .to(".swipe-container", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out"
+      }, "-=0.6")
+      .to("#cta-gate", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      }, "-=0.4");
+
+      // ==========================================
+      // 3D CURSOR TILT PHYSICS (MOBILE & DESKTOP)
+      // ==========================================
+      function bindTiltEffect(card) {
+        gsap.set(card, { transformPerspective: 1000 });
+
+        card.addEventListener("pointermove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const mX = e.clientX - rect.left;
+          const mY = e.clientY - rect.top;
+
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const tiltX = ((mY - centerY) / centerY) * -8; 
+          const tiltY = ((mX - centerX) / centerX) * 8;
+
+          gsap.to(card, {
+            rotateX: tiltX,
+            rotateY: tiltY,
+            ease: "power2.out",
+            duration: 0.5,
+            overwrite: "auto"
+          });
+        });
+
+        card.addEventListener("pointerleave", () => {
+          gsap.to(card, {
+            rotateX: 0,
+            rotateY: 0,
+            ease: "power4.out",
+            duration: 0.8,
+            overwrite: "auto"
+          });
+        });
+      }
+
+      document.querySelectorAll(".menu-card").forEach(bindTiltEffect);
+
+      // ==========================================
+      // PRECISE LIQUID GLASS LIFT INTERACTIVE LISTENERS
+      // ==========================================
+      const glassElements = document.querySelectorAll(".menu-card");
+
+      glassElements.forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          gsap.to(card, {
+            scale: 1.015,
+            y: -8,
+            boxShadow: "0 30px 60px rgba(0, 82, 255, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.98)",
+            borderColor: "rgba(255, 255, 255, 0.95)",
+            duration: 0.4,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+        });
+
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, {
+            scale: 1.0,
+            y: 0,
+            boxShadow: "0 15px 45px rgba(0, 82, 255, 0.02), inset 0 1px 2px rgba(255, 255, 255, 0.95)",
+            borderColor: "rgba(255, 255, 255, 0.8)",
+            duration: 0.6,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+        });
+      });
+
+      // ==========================================
+      // INTERACTIVE PREFERENCE BUTTON LOGIC
+      // ==========================================
+      const prefBtns = document.querySelectorAll('.pref-btn');
+      
+      prefBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          
+          // Clear active states
+          prefBtns.forEach(b => {
+            b.classList.remove('glow-active');
+            gsap.to(b, { scale: 1, duration: 0.2 });
+          });
+          
+          // Set new active state
+          btn.classList.add('glow-active');
+          gsap.fromTo(btn, { scale: 0.95 }, { scale: 1.05, duration: 0.4, ease: "back.out(2)" });
+        });
+      });
+
+      // ==========================================
+      // CONVERSION CAP ACTION BUTTON HOVER MECHANICS
+      // ==========================================
+      const conversionButtons = document.querySelectorAll(".group\\/btn");
+      conversionButtons.forEach((btn) => {
+        btn.addEventListener("mouseenter", () => {
+          gsap.to(btn, {
+            scale: 1.04,
+            duration: 0.6,
+            ease: "elastic.out(1.2, 0.4)",
+            overwrite: "auto"
+          });
+        });
+
+        btn.addEventListener("mouseleave", () => {
+          gsap.to(btn, {
+            scale: 1.0,
+            duration: 0.4,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
