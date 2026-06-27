@@ -88,6 +88,17 @@
       transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
                   border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    
+    .liquid-glass:hover {
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Active State for Interactive Choice Rows */
+    .plan-btn.active {
+      border-color: #ff2a85;
+      color: #ff2a85;
+      transform: translateX(12px);
+    }
 
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
@@ -102,6 +113,344 @@
     }
     ::-webkit-scrollbar-thumb:hover {
       background: #cbd5e1;
+    }
+
+    /* Testimonial Carousel Track */
+    .testimonial-track {
+      display: flex;
+      justify-content: center; /* Fallback for older browsers */
+      justify-content: safe center; /* Centers items, but safely aligns left if they overflow to prevent cutoff */
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* IE and Edge */
+      scroll-behavior: smooth;
+      padding-bottom: 2rem;
+    }
+    .testimonial-track::-webkit-scrollbar {
+      display: none;
+    }
+    .testimonial-track > div {
+      scroll-snap-align: center;
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    /* Mobile Hardened Spacing & Symmetrical Alignments (Screens under 768px & 5-inch viewports) */
+    @media (max-width: 768px) {
+      /* Page 1: Hero Welcome Layout Compressions */
+      #hero-section {
+        min-height: 100vh !important;
+        height: auto !important;
+        padding-top: 6rem !important;
+        padding-bottom: 2rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+
+      /* Heading typography natural wrapping on mobile - REDUCED */
+      #manifesto-headline {
+        font-size: clamp(20px, 6vw, 28px) !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+        margin-bottom: 1rem !important;
+        word-break: break-word !important;
+      }
+
+      /* Manifesto body text natural wrapping on mobile - REDUCED */
+      #about {
+        font-size: clamp(10px, 3vw, 13px) !important;
+        line-height: 1.5 !important;
+        white-space: normal !important;
+        margin-bottom: 1.5rem !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+      }
+
+      /* Mobile CTA Button alignment matrix */
+      #hero-ctas {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+        max-width: 240px !important;
+        margin-bottom: 1.5rem !important;
+      }
+      #hero-ctas a {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 0.75rem 1.25rem !important;
+        font-size: 11px !important;
+        white-space: nowrap !important;
+      }
+
+      /* Adjust floating fruits */
+      .parallax-fruit {
+        transform: scale(0.45) !important;
+      }
+      #fruit-kiwi { top: 8% !important; left: -12% !important; }
+      #fruit-dragon { bottom: 4% !important; right: -12% !important; }
+      #fruit-berry { top: 40% !important; right: -8% !important; }
+
+      /* Page 2: Highlights Section Compressions */
+      #highlights-section {
+        min-height: 100vh !important;
+        height: auto !important;
+        padding-top: 4rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+      #macro-showcase-wrapper {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+      #macro-showcase-wrapper .liquid-glass {
+        padding: 1rem !important;
+        gap: 1rem !important;
+        grid-template-columns: 1fr !important;
+      }
+      #highlights-section h3 {
+        font-size: clamp(16px, 5vw, 22px) !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.5rem !important;
+        white-space: normal !important;
+      }
+      #highlights-section p {
+        font-size: clamp(10px, 3vw, 12px) !important;
+        line-height: 1.5 !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        margin-bottom: 1rem !important;
+      }
+      .plan-btn {
+        font-size: 12px !important;
+        white-space: nowrap !important;
+        padding-left: 0.5rem !important;
+      }
+      #active-plan-plate {
+        width: 140px !important;
+        height: 140px !important;
+      }
+      .macro-badge {
+        padding: 0.25rem 0.5rem !important;
+      }
+      .macro-badge span {
+        font-size: 8px !important;
+      }
+
+      /* Page 3: Bento Scroller Layout Compression */
+      #why-choose-us {
+        height: auto !important;
+        min-height: 100vh !important;
+        padding-top: 4rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+      #why-choose-us h2 {
+        font-size: clamp(18px, 5vw, 24px) !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+        margin-bottom: 0.5rem !important;
+      }
+      #why-choose-us p {
+        font-size: clamp(10px, 3vw, 12px) !important;
+        line-height: 1.5 !important;
+        white-space: normal !important;
+      }
+      .bento-wrapper {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+      }
+      #bento-track {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        gap: 0.75rem !important;
+      }
+      #bento-track .liquid-glass {
+        width: 200px !important;
+        height: 120px !important;
+        padding: 1rem !important;
+      }
+      #bento-track .liquid-glass h3 {
+        font-size: 12px !important;
+        line-height: 1.3 !important;
+        white-space: normal !important;
+      }
+      #bento-track .liquid-glass .w-12.h-12 {
+        width: 2rem !important;
+        height: 2rem !important;
+        font-size: 1rem !important;
+        margin-bottom: 0.5rem !important;
+      }
+
+      /* Page 4: Testimonials Natural Layout - Carousel Mobile Fix */
+      #testimonials {
+        min-height: 100vh !important;
+        height: auto !important;
+        padding-top: 4rem !important;
+        padding-bottom: 1.5rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+      }
+      #testimonials h2 {
+        font-size: clamp(18px, 5vw, 24px) !important;
+        margin-bottom: 0.25rem !important;
+      }
+      #testimonials p {
+        font-size: clamp(10px, 3vw, 12px) !important;
+      }
+      
+      /* SHRINK CARD CONTENTS TO FIT MOBILE CAROUSEL */
+      .testimonial-track > div {
+        max-width: 280px !important;
+      }
+      .testimonial-card {
+        padding: 1.25rem !important;
+        border-radius: 20px !important;
+      }
+      .testimonial-card .text-8xl {
+        font-size: 2.5rem !important;
+        top: 0.25rem !important;
+        right: 0.5rem !important;
+      }
+      .testimonial-card .text-yellow-400 {
+        font-size: 0.6rem !important;
+        margin-bottom: 0.5rem !important;
+        gap: 0.1rem !important;
+      }
+      .testimonial-card p.italic {
+        font-size: clamp(10px, 2.5vw, 12px) !important;
+        line-height: 1.4 !important;
+        white-space: normal !important;
+        margin-bottom: 0.75rem !important;
+      }
+      .testimonial-card .w-12.h-12 {
+        width: 2rem !important;
+        height: 2rem !important;
+        font-size: 0.8rem !important;
+      }
+      .testimonial-card .font-bold.text-neutral-950 {
+        font-size: clamp(10px, 2.5vw, 12px) !important;
+        white-space: normal !important;
+      }
+      .testimonial-card .gap-4 {
+        gap: 0.5rem !important;
+      }
+      
+      /* Shrink floating veggies */
+      .float-accent-left, .float-accent-right {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+        font-size: 0.7rem !important;
+      }
+      .float-accent-left { left: -0.5rem !important; }
+      .float-accent-right { right: -0.5rem !important; }
+
+      #add-review-trigger {
+        padding: 0.6rem 1.2rem !important;
+        margin-top: 1.5rem !important;
+        width: 100% !important;
+        max-width: 200px !important;
+      }
+      #add-review-trigger span {
+        font-size: 10px !important;
+      }
+
+      /* Mobile Modal Overrides - Bottom Tray Layout */
+      #review-modal {
+        align-items: flex-end !important;
+        padding: 0 !important;
+      }
+      .modal-card {
+        margin-top: auto !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-top-left-radius: 24px !important;
+        border-top-right-radius: 24px !important;
+        padding: 1.5rem 1.25rem !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .modal-card h3 {
+        font-size: 1.25rem !important;
+        margin-bottom: 0.25rem !important;
+      }
+      .modal-card p {
+        font-size: 0.75rem !important;
+        margin-bottom: 1rem !important;
+      }
+      .modal-card input, .modal-card textarea {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.75rem !important;
+        border-radius: 0.5rem !important;
+      }
+      .modal-card label {
+        font-size: 0.65rem !important;
+        width: auto !important;
+        margin-bottom: 0.25rem !important;
+      }
+      .modal-card .flex-col.md\:flex-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.25rem !important;
+      }
+      #close-modal {
+        top: 1rem !important;
+        right: 1rem !important;
+        font-size: 0.65rem !important;
+      }
+      #review-form {
+        gap: 0.75rem !important;
+      }
+      #review-form button[type="submit"] {
+        padding: 0.75rem !important;
+        font-size: 0.75rem !important;
+        margin-top: 0.5rem !important;
+      }
+
+      /* Page 5: CTA Compressions */
+      #cta {
+        min-height: 100vh !important;
+        height: auto !important;
+        padding-top: 4rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+      #cta .liquid-glass {
+        padding: 2rem 1rem !important;
+        width: 100% !important;
+      }
+      #cta h2 {
+        font-size: clamp(18px, 5vw, 26px) !important;
+        line-height: 1.25 !important;
+        margin-bottom: 0.75rem !important;
+      }
+      #cta p {
+        font-size: clamp(10px, 3vw, 13px) !important;
+        line-height: 1.5 !important;
+        margin-bottom: 1.5rem !important;
+      }
+      #cta button {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 11px !important;
+        width: 100% !important;
+        max-width: 220px !important;
+      }
+      
+      /* Single line enforcers for specific elements */
+      .mobile-single-line,
+      header nav a,
+      header nav button {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
     }
   </style>
 </head>
@@ -121,16 +470,16 @@
        ========================================== -->
   <header class="fixed top-6 left-0 right-0 z-50 px-4 md:px-0 flex justify-center">
     <nav class="w-full max-w-4xl px-6 py-4 flex items-center justify-between rounded-full bg-white/45 border border-white/80 backdrop-blur-[30px] shadow-[0_10px_35px_rgba(0,0,0,0.02)] transition-all duration-300">
-      <a href="#" class="font-montserrat font-black tracking-widest text-lg bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic bg-clip-text text-transparent hover:opacity-80 transition-opacity">
+      <a href="#" class="font-montserrat font-black tracking-widest text-lg bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic bg-clip-text text-transparent hover:opacity-80 transition-opacity mobile-single-line">
         DIET DHEKO
       </a>
       <div class="hidden md:flex items-center gap-8 font-jakarta text-sm font-semibold text-neutral-600">
-        <a href="#macro-showcase-wrapper" class="hover:text-dragonfruit transition-colors">Highlights</a>
+        <a href="#highlights-section" class="hover:text-dragonfruit transition-colors">Manifesto</a>
         <a href="#why-choose-us" class="hover:text-dragonfruit transition-colors">Core Factors</a>
         <a href="#testimonials" class="hover:text-dragonfruit transition-colors">Testimonials</a>
       </div>
       <div>
-        <a href="#cta" class="px-5 py-2.5 rounded-full bg-neutral-900 text-white font-jakarta text-xs font-bold tracking-wider uppercase hover:bg-neutral-800 transition-all duration-300 hover:scale-105">
+        <a href="#cta" class="px-5 py-2.5 rounded-full bg-neutral-900 text-white font-jakarta text-xs font-bold tracking-wider uppercase hover:bg-neutral-800 transition-all duration-300 hover:scale-105 mobile-single-line">
           Get Started
         </a>
       </div>
@@ -143,9 +492,9 @@
   <main class="relative z-10 w-full overflow-hidden">
 
     <!-- ==========================================
-         PAGE 1: THE HERO WELCOME
+         PAGE 1: THE HERO WELCOME (Centered 100vh prevents bottom peeking)
          ========================================== -->
-    <section id="hero-section" class="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
+    <section id="hero-section" class="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden bg-transparent">
       
       <!-- LAYER Z-1: MASSIVE TYPOGRAPHY (MIDDLE LAYER) -->
       <div class="absolute inset-0 flex justify-center items-center pointer-events-none select-none z-10 overflow-hidden">
@@ -157,7 +506,7 @@
       <!-- LAYER Z-2: FOREGROUND FLOATING CULINARY ASSETS -->
       <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden">
         
-        <!-- Floating Kiwi Slices Container -->
+        <!-- Floating Kiwi Slices Container (Netted structure to isolate parallax & floating states) -->
         <div id="fruit-kiwi" class="parallax-fruit absolute w-48 h-48 top-[20%] left-[8%] opacity-90">
           <div class="fruit-drift-kiwi w-full h-full">
             <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_20px_35px_rgba(101,163,13,0.35)]">
@@ -169,6 +518,7 @@
               </defs>
               <circle cx="50" cy="50" r="45" fill="url(#kiwiGrad)" />
               <circle cx="50" cy="50" r="16" fill="#fef08a" />
+              <!-- Kiwi Seeds -->
               <g fill="#1a1a1a">
                 <circle cx="50" cy="28" r="2" /><circle cx="50" cy="72" r="2" />
                 <circle cx="28" cy="50" r="2" /><circle cx="72" cy="50" r="2" />
@@ -179,6 +529,7 @@
                 <circle cx="58" cy="30" r="2" /><circle cx="42" cy="70" r="2" />
                 <circle cx="70" cy="42" r="2" /><circle cx="30" cy="58" r="2" />
               </g>
+              <!-- White Pulpy Rays -->
               <g stroke="#ffffff" stroke-width="1" opacity="0.6">
                 <line x1="50" y1="50" x2="50" y2="15" /><line x1="50" y1="50" x2="50" y2="85" />
                 <line x1="50" y1="50" x2="15" y2="50" /><line x1="50" y1="50" x2="85" y2="50" />
@@ -200,8 +551,11 @@
                   <stop offset="100%" stop-color="#db2777"/>
                 </linearGradient>
               </defs>
+              <!-- Outer skin -->
               <path d="M50 5 C20 30 20 70 50 95 C80 70 80 30 50 5 Z" fill="url(#dragonSkin)" />
+              <!-- Inside flesh -->
               <path d="M50 15 C30 35 30 65 50 85 C70 65 70 35 50 15 Z" fill="#fcfcfc" />
+              <!-- Black Seeds -->
               <g fill="#111111">
                 <circle cx="50" cy="35" r="1.5" /><circle cx="45" cy="45" r="1.5" /><circle cx="55" cy="45" r="1.5" />
                 <circle cx="40" cy="55" r="1.5" /><circle cx="50" cy="55" r="1.5" /><circle cx="60" cy="55" r="1.5" />
@@ -223,6 +577,7 @@
                 </radialGradient>
               </defs>
               <circle cx="50" cy="50" r="45" fill="url(#berryGrad)" />
+              <!-- Crown of blueberry -->
               <path d="M 40 18 Q 50 25 60 18 Q 55 10 45 10 Z" fill="#1e293b" opacity="0.8" />
             </svg>
           </div>
@@ -235,7 +590,7 @@
         <!-- Welcome Pill Tag -->
         <span class="inline-flex items-center gap-2 px-5 py-2 mb-6 rounded-full bg-white/65 border border-white/80 backdrop-blur-md shadow-sm">
           <span class="w-2 h-2 rounded-full bg-dragonfruit animate-pulse"></span>
-          <span class="font-jakarta text-xs font-bold tracking-wider uppercase text-neutral-700">WELCOME TO DIET DHEKO</span>
+          <span class="font-jakarta text-xs font-bold tracking-wider uppercase text-neutral-700 mobile-single-line">WELCOME TO DIET DHEKO</span>
         </span>
 
         <!-- Brand Headline Statement -->
@@ -329,14 +684,14 @@
       <!-- Section Header -->
       <div class="max-w-7xl mx-auto px-6 mb-6 text-center select-none">
         <h2 class="font-montserrat font-black text-3xl md:text-5xl text-neutral-900 tracking-tight mb-2">
-          💚 Why Choose Diet Dheko?
+          Why Choose Diet Dheko?
         </h2>
         <p class="font-jakarta text-neutral-500 text-sm md:text-base">
           Swipe or scroll down to explore our core nutritional framework.
         </p>
       </div>
 
-      <!-- Massive Flex-Row Container (Horizontal Track: Stripped descriptions, overflow-visible prevents hover clipping) -->
+      <!-- Massive Flex-Row Container (Horizontal Track) -->
       <div class="bento-wrapper w-full overflow-visible relative pt-8 pb-8">
         <div id="bento-track" class="flex flex-row gap-6 px-12 md:px-24 overflow-visible h-auto select-none hardware-layer" style="width: max-content;">
           
@@ -411,102 +766,119 @@
     </section>
 
     <!-- ==========================================
-         PAGE 4: CUSTOMER TESTIMONIALS
+         PAGE 4: CUSTOMER TESTIMONIALS (CAROUSEL)
          ========================================== -->
-    <section id="testimonials" class="relative z-30 py-24 px-6 max-w-7xl mx-auto overflow-visible">
+    <section id="testimonials" class="relative min-h-screen flex flex-col justify-center items-center py-24 px-6 z-30 overflow-visible">
       
-      <!-- Section Header -->
-      <div class="text-center mb-16 select-none">
-        <h2 class="font-montserrat font-black text-4xl md:text-6xl text-neutral-900 tracking-tight mb-4">
-          ⭐ Customer Testimonials
-        </h2>
-        <p class="font-jakarta text-neutral-500 text-lg">
-          Thousands have transformed their lifestyle with Diet Dheko.
-        </p>
-      </div>
-
-      <!-- Testimonial Two-Column Grid (Overflow set to visible for boundary breaking decoration) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-        
-        <!-- Cell A -->
-        <div class="testimonial-card liquid-glass p-10 flex flex-col justify-between relative overflow-visible hardware-layer group">
-          <div class="absolute top-4 right-6 text-neutral-200/50 text-8xl font-montserrat font-black select-none pointer-events-none">“</div>
-          
-          <!-- Liquid Shifting Interactive Blur Blobs -->
-          <div class="hover-glow-blob absolute w-48 h-48 rounded-full bg-gradient-to-tr from-dragonfruit/10 to-cosmic/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 select-none transform -translate-x-1/2 -translate-y-1/2"></div>
-
-          <!-- Left Decorative Botanical Accent -->
-          <div class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-green-500 text-xl border border-green-100 float-accent-left absolute -left-6 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
-            <i class="fa-solid fa-leaf"></i>
-          </div>
-
-          <!-- Right Decorative Citric Accent -->
-          <div class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-yellow-500 text-lg border border-yellow-100 float-accent-right absolute -right-6 top-1/3 z-20 pointer-events-none">
-            <i class="fa-solid fa-lemon"></i>
-          </div>
-
-          <div class="mb-8 relative z-10">
-            <!-- Stars -->
-            <div class="flex gap-1 text-yellow-400 mb-6">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
-            <p class="font-jakarta text-neutral-700 text-xl leading-relaxed italic">
-              "The meals are fresh, delicious, and helped me stay consistent with my weight loss journey."
-            </p>
-          </div>
-          <div class="flex items-center gap-4 relative z-10">
-            <div class="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center font-jakarta font-bold text-neutral-700">
-              <i class="fa-solid fa-user text-neutral-500"></i>
-            </div>
-            <div>
-              <p class="font-jakarta text-sm font-bold text-neutral-950">Consistent Subscriber</p>
-            </div>
-          </div>
+      <div class="w-full max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-12 select-none">
+          <h2 class="font-montserrat font-black text-4xl md:text-6xl text-neutral-900 tracking-tight mb-4">
+            ⭐ Customer Testimonials
+          </h2>
+          <p class="font-jakarta text-neutral-500 text-lg">
+            Thousands have transformed their lifestyle with Diet Dheko.
+          </p>
         </div>
 
-        <!-- Cell B -->
-        <div class="testimonial-card liquid-glass p-10 flex flex-col justify-between relative overflow-visible hardware-layer group">
-          <div class="absolute top-4 right-6 text-neutral-200/50 text-8xl font-montserrat font-black select-none pointer-events-none">“</div>
+        <!-- Testimonial Horizontal Carousel -->
+        <div class="relative w-full group/carousel">
           
-          <!-- Liquid Shifting Interactive Blur Blobs -->
-          <div class="hover-glow-blob absolute w-48 h-48 rounded-full bg-gradient-to-tr from-dragonfruit/10 to-cosmic/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 select-none transform -translate-x-1/2 -translate-y-1/2"></div>
+          <!-- Left Navigation Arrow -->
+          <button id="testi-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-6 z-40 w-10 h-10 md:w-12 md:h-12 rounded-full liquid-glass flex items-center justify-center text-neutral-800 hover:text-dragonfruit opacity-100 md:opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 shadow-lg">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
 
-          <!-- Left Decorative Botanical Accent -->
-          <div class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-green-500 text-xl border border-green-100 float-accent-left absolute -left-6 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
-            <i class="fa-solid fa-leaf"></i>
+          <!-- Scroll Track -->
+          <div id="testimonial-track" class="testimonial-track gap-6 md:gap-8 px-4 md:px-12 py-8">
+            
+            <!-- Cell A -->
+            <div class="testimonial-card liquid-glass p-8 md:p-10 flex flex-col justify-between relative overflow-visible hardware-layer group">
+              <div class="absolute top-4 right-6 text-neutral-200/50 text-8xl font-montserrat font-black select-none pointer-events-none">“</div>
+              
+              <!-- Liquid Shifting Interactive Blur Blobs -->
+              <div class="hover-glow-blob absolute w-48 h-48 rounded-full bg-gradient-to-tr from-dragonfruit/10 to-cosmic/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 select-none transform -translate-x-1/2 -translate-y-1/2"></div>
+
+              <!-- Left Decorative Botanical Accent -->
+              <div class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-green-500 text-xl border border-green-100 float-accent-left absolute -left-6 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                <i class="fa-solid fa-leaf"></i>
+              </div>
+
+              <!-- Right Decorative Citric Accent -->
+              <div class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-yellow-500 text-lg border border-yellow-100 float-accent-right absolute -right-6 top-1/3 z-20 pointer-events-none">
+                <i class="fa-solid fa-lemon"></i>
+              </div>
+
+              <div class="mb-8 relative z-10">
+                <!-- Stars -->
+                <div class="flex gap-1 text-yellow-400 mb-6">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="font-jakarta text-neutral-700 text-xl leading-relaxed italic">
+                  "The meals are fresh, delicious, and helped me stay consistent with my weight loss journey."
+                </p>
+              </div>
+              <div class="flex items-center gap-4 relative z-10">
+                <div class="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center font-jakarta font-bold text-neutral-700">
+                  <i class="fa-solid fa-user text-neutral-500"></i>
+                </div>
+                <div>
+                  <p class="font-jakarta text-sm font-bold text-neutral-950">Consistent Subscriber</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cell B -->
+            <div class="testimonial-card liquid-glass p-8 md:p-10 flex flex-col justify-between relative overflow-visible hardware-layer group">
+              <div class="absolute top-4 right-6 text-neutral-200/50 text-8xl font-montserrat font-black select-none pointer-events-none">“</div>
+              
+              <!-- Liquid Shifting Interactive Blur Blobs -->
+              <div class="hover-glow-blob absolute w-48 h-48 rounded-full bg-gradient-to-tr from-dragonfruit/10 to-cosmic/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 select-none transform -translate-x-1/2 -translate-y-1/2"></div>
+
+              <!-- Left Decorative Botanical Accent -->
+              <div class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-green-500 text-xl border border-green-100 float-accent-left absolute -left-6 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                <i class="fa-solid fa-leaf"></i>
+              </div>
+
+              <!-- Right Decorative Citric Accent -->
+              <div class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-yellow-500 text-lg border border-yellow-100 float-accent-right absolute -right-6 top-1/3 z-20 pointer-events-none">
+                <i class="fa-solid fa-lemon"></i>
+              </div>
+
+              <div class="mb-8 relative z-10">
+                <!-- Stars -->
+                <div class="flex gap-1 text-yellow-400 mb-6">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="font-jakarta text-neutral-700 text-xl leading-relaxed italic">
+                  "Healthy food that actually tastes good. Highly recommended!"
+                </p>
+              </div>
+              <div class="flex items-center gap-4 relative z-10">
+                <div class="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center font-jakarta font-bold text-neutral-700">
+                  <i class="fa-solid fa-user text-neutral-500"></i>
+                </div>
+                <div>
+                  <p class="font-jakarta text-sm font-bold text-neutral-950">Fitness Enthusiast</p>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Right Decorative Citric Accent -->
-          <div class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-yellow-500 text-lg border border-yellow-100 float-accent-right absolute -right-6 top-1/3 z-20 pointer-events-none">
-            <i class="fa-solid fa-lemon"></i>
-          </div>
+          <!-- Right Navigation Arrow -->
+          <button id="testi-next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-6 z-40 w-10 h-10 md:w-12 md:h-12 rounded-full liquid-glass flex items-center justify-center text-neutral-800 hover:text-dragonfruit opacity-100 md:opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 shadow-lg">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
 
-          <div class="mb-8 relative z-10">
-            <!-- Stars -->
-            <div class="flex gap-1 text-yellow-400 mb-6">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
-            <p class="font-jakarta text-neutral-700 text-xl leading-relaxed italic">
-              "Healthy food that actually tastes good. Highly recommended!"
-            </p>
-          </div>
-          <div class="flex items-center gap-4 relative z-10">
-            <div class="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center font-jakarta font-bold text-neutral-700">
-              <i class="fa-solid fa-user text-neutral-500"></i>
-            </div>
-            <div>
-              <p class="font-jakarta text-sm font-bold text-neutral-950">Fitness Enthusiast</p>
-            </div>
-          </div>
         </div>
 
-      </div>
-
-      <!-- THE "ADD YOUR REVIEW" ACTION HUB -->
-      <div class="mt-16 flex justify-center">
-        <button id="add-review-trigger" class="liquid-glass group/review px-8 py-4 rounded-full text-neutral-900 font-montserrat font-black text-sm tracking-widest uppercase flex items-center gap-2 hover:text-dragonfruit transition-colors hardware-layer">
-          <span class="bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic bg-clip-text text-transparent group-hover/review:opacity-80">[ + ADD YOUR REVIEW ]</span>
-        </button>
+        <!-- THE "ADD YOUR REVIEW" ACTION HUB -->
+        <div class="mt-8 flex justify-center">
+          <button id="add-review-trigger" class="liquid-glass group/review px-8 py-4 rounded-full text-neutral-900 font-montserrat font-black text-sm tracking-widest uppercase flex items-center gap-2 hover:text-dragonfruit transition-colors hardware-layer">
+            <span class="bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic bg-clip-text text-transparent group-hover/review:opacity-80">[ + ADD YOUR REVIEW ]</span>
+          </button>
+        </div>
       </div>
 
     </section>
@@ -548,16 +920,70 @@
   <!-- ==========================================
        FOOTER LAYOUT
        ========================================== -->
-  <footer class="relative z-30 border-t border-neutral-100 bg-white/40 py-12 px-6">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="font-montserrat font-black tracking-widest text-lg bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic bg-clip-text text-transparent">
+  <footer class="relative z-30 border-t border-neutral-100 bg-white/40 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 md:gap-6">
+      <div class="font-montserrat font-black tracking-widest text-[11px] bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic bg-clip-text text-transparent">
         DIET DHEKO
       </div>
-      <p class="font-jakarta text-xs text-neutral-400">
+      <p class="font-jakarta text-[10px] text-slate-400">
         &copy; 2026 Diet Dheko. All rights carefully reserved.
       </p>
     </div>
   </footer>
+
+  <!-- ==========================================
+       REVIEW MODAL OVERLAY (HIDDEN BY DEFAULT)
+       ========================================== -->
+  <div id="review-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none bg-neutral-900/60 backdrop-blur-md transition-opacity">
+    <div class="modal-card liquid-glass w-full max-w-lg p-8 md:p-10 relative hardware-layer flex flex-col gap-6 shadow-2xl overflow-hidden group">
+      
+      <!-- Liquid Shifting Interactive Blur Blobs for Modal -->
+      <div class="hover-glow-blob absolute w-64 h-64 rounded-full bg-gradient-to-tr from-dragonfruit/15 to-cosmic/15 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 select-none transform -translate-x-1/2 -translate-y-1/2"></div>
+
+      <!-- Close Button -->
+      <button id="close-modal" class="absolute top-5 right-6 text-neutral-400 hover:text-dragonfruit transition-colors font-jakarta text-xs font-bold tracking-wider uppercase z-20">
+        ✕ Close Menu
+      </button>
+      
+      <div class="relative z-10">
+        <h3 class="font-montserrat font-black text-2xl md:text-3xl text-neutral-900 uppercase mb-2">Share Your Journey</h3>
+        <p class="font-jakarta text-sm text-neutral-500 mb-6">Inspire others by sharing your transformation.</p>
+        
+        <form id="review-form" class="flex flex-col gap-5">
+          
+          <!-- Name Input -->
+          <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+            <label class="font-jakarta text-xs font-bold text-neutral-700 uppercase tracking-wider whitespace-nowrap w-24">Full Name</label>
+            <input type="text" id="reviewer-name" required placeholder="e.g. Jane Doe" class="flex-1 bg-white/60 border border-white/80 rounded-xl px-4 py-3 text-sm font-jakarta text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-dragonfruit/60 focus:ring-2 focus:ring-dragonfruit/20 transition-all shadow-inner">
+          </div>
+          
+          <!-- Rating Input -->
+          <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+            <label class="font-jakarta text-xs font-bold text-neutral-700 uppercase tracking-wider whitespace-nowrap w-24">Rating</label>
+            <div id="star-rating" class="flex gap-2 text-neutral-300 text-2xl cursor-pointer select-none">
+              <i class="fa-solid fa-star star-icon transition-colors duration-200" data-value="1"></i>
+              <i class="fa-solid fa-star star-icon transition-colors duration-200" data-value="2"></i>
+              <i class="fa-solid fa-star star-icon transition-colors duration-200" data-value="3"></i>
+              <i class="fa-solid fa-star star-icon transition-colors duration-200" data-value="4"></i>
+              <i class="fa-solid fa-star star-icon transition-colors duration-200" data-value="5"></i>
+            </div>
+            <input type="hidden" id="reviewer-rating" value="5" required>
+          </div>
+          
+          <!-- Message Input -->
+          <div class="flex flex-col gap-2 mt-2">
+            <label class="font-jakarta text-xs font-bold text-neutral-700 uppercase tracking-wider whitespace-nowrap">Testimonial Message</label>
+            <textarea id="reviewer-message" required rows="4" placeholder="How did Diet Dheko help you?" class="w-full bg-white/60 border border-white/80 rounded-xl px-4 py-3 text-sm font-jakarta text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-dragonfruit/60 focus:ring-2 focus:ring-dragonfruit/20 transition-all resize-none shadow-inner"></textarea>
+          </div>
+          
+          <!-- Submit Button -->
+          <button type="submit" class="mt-4 w-full py-4 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-sm tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 hover:scale-[1.02] active:scale-95">
+            Submit Review
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================
        GSAP PARALLAX ENGINE & MESH PHYSICS
@@ -883,9 +1309,26 @@
 
 
       // ==========================================
-      // PREMIUM TESTIMONIALS STAGGER & 3D TILT PHYSICS
-      // Entrance timeline sliding cards upwards with micro-delayed scaling (Jolly bouncy ease)
+      // PREMIUM TESTIMONIALS CAROUSEL & UNIFIED POINTER TILT PHYSICS
       // ==========================================
+      const testimonialTrack = document.getElementById("testimonial-track");
+      const testiPrev = document.getElementById("testi-prev");
+      const testiNext = document.getElementById("testi-next");
+
+      // Carousel Navigation Logic
+      if(testimonialTrack && testiPrev && testiNext) {
+        const getScrollAmount = () => window.innerWidth < 768 ? 300 : 450;
+        
+        testiPrev.addEventListener("click", () => {
+          testimonialTrack.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+        });
+        
+        testiNext.addEventListener("click", () => {
+          testimonialTrack.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+        });
+      }
+
+      // Entrance timeline sliding cards upwards with micro-delayed scaling (Jolly bouncy ease)
       gsap.fromTo(".testimonial-card", {
         opacity: 0,
         y: 60,
@@ -904,13 +1347,12 @@
         ease: "back.out(1.5)" // Precise bouncy reveal vector
       });
 
-      // 3D Cursor Tilt Physics & Liquid Motion Overlay Mapping
-      const testimonialCards = document.querySelectorAll(".testimonial-card");
-      testimonialCards.forEach(card => {
-        // Enforce parent perspective styling
+      // 3D Cursor Tilt Physics & Liquid Motion Overlay Mapping (Reusable Function)
+      function bindTiltEffect(card) {
+        // Enforce parent perspective and GPU acceleration styling
         gsap.set(card, { transformPerspective: 1000 });
 
-        card.addEventListener("mousemove", (e) => {
+        card.addEventListener("pointermove", (e) => {
           const rect = card.getBoundingClientRect();
           const mX = e.clientX - rect.left;
           const mY = e.clientY - rect.top;
@@ -943,7 +1385,7 @@
           }
         });
 
-        card.addEventListener("mouseleave", () => {
+        card.addEventListener("pointerleave", () => {
           // Reset card rotation and scale smoothly on leave
           gsap.to(card, {
             rotateX: 0,
@@ -953,15 +1395,35 @@
             overwrite: "auto"
           });
         });
-      });
+      }
 
-      // Trigger bouncy kinetic feedback on Add Review Matrix button
+      // Bind tilt to existing testimonial cards
+      document.querySelectorAll(".testimonial-card").forEach(bindTiltEffect);
+
+      // ==========================================
+      // REVIEW MODAL LOGIC & SUPABASE MOCK HANDSHAKE
+      // ==========================================
       const addReviewBtn = document.getElementById("add-review-trigger");
+      const reviewModal = document.getElementById("review-modal");
+      const modalCard = reviewModal.querySelector(".modal-card");
+      const closeModalBtn = document.getElementById("close-modal");
+      const reviewForm = document.getElementById("review-form");
+      const starIcons = document.querySelectorAll(".star-icon");
+      const ratingInput = document.getElementById("reviewer-rating");
+      
+      // Helper to check if mobile viewport
+      const isMobile = () => window.matchMedia("(max-width: 768px)").matches;
+
+      // Bind 3D tilt to the modal card itself
+      bindTiltEffect(modalCard);
+
+      // Open Modal Logic
       if(addReviewBtn) {
-        addReviewBtn.addEventListener("click", () => {
-          gsap.fromTo(addReviewBtn, {
-            scale: 1.0
-          }, {
+        addReviewBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          
+          // Trigger bouncy kinetic feedback on button first
+          gsap.fromTo(addReviewBtn, { scale: 1.0 }, {
             keyframes: [
               { scale: 1.12, duration: 0.2, ease: "power2.out" },
               { scale: 0.95, duration: 0.15, ease: "power2.in" },
@@ -969,6 +1431,158 @@
             ],
             overwrite: "auto"
           });
+
+          // Animate Modal In (Responsive)
+          gsap.to(reviewModal, { opacity: 1, pointerEvents: "auto", duration: 0.4, ease: "power2.out" });
+          
+          if (isMobile()) {
+            // Slide up from bottom tray
+            gsap.fromTo(modalCard, { y: "100%", opacity: 1 }, { 
+              y: "0%", 
+              duration: 0.6, 
+              ease: "cubic-bezier(0.16, 1, 0.3, 1)", 
+              delay: 0.1 
+            });
+          } else {
+            // Center pop scale
+            gsap.fromTo(modalCard, { scale: 0.95, y: 30, opacity: 0 }, { 
+              scale: 1, 
+              y: 0, 
+              opacity: 1, 
+              duration: 0.6, 
+              ease: "cubic-bezier(0.16, 1, 0.3, 1)", 
+              delay: 0.1 
+            });
+          }
+          
+          // Prevent background scrolling
+          document.body.style.overflow = "hidden";
+        });
+      }
+
+      // Close Modal Logic
+      const closeReviewModal = () => {
+        gsap.to(reviewModal, { opacity: 0, pointerEvents: "none", duration: 0.4, ease: "power2.inOut" });
+        
+        if (isMobile()) {
+          gsap.to(modalCard, { y: "100%", duration: 0.4, ease: "power2.in" });
+        } else {
+          gsap.to(modalCard, { scale: 0.95, y: 20, opacity: 0, duration: 0.3, ease: "power2.in" });
+        }
+        
+        document.body.style.overflow = ""; // Restore scrolling
+      };
+
+      if(closeModalBtn) {
+        closeModalBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          closeReviewModal();
+        });
+      }
+
+      // Star Rating Interactive Logic
+      let currentRating = 5;
+      const updateStars = (rating) => {
+        starIcons.forEach(star => {
+          if (parseInt(star.dataset.value) <= rating) {
+            star.classList.remove("text-neutral-300");
+            star.classList.add("text-yellow-400");
+          } else {
+            star.classList.remove("text-yellow-400");
+            star.classList.add("text-neutral-300");
+          }
+        });
+      };
+      
+      starIcons.forEach(star => {
+        star.addEventListener("mouseover", () => updateStars(parseInt(star.dataset.value)));
+        star.addEventListener("mouseleave", () => updateStars(currentRating));
+        star.addEventListener("click", () => {
+          currentRating = parseInt(star.dataset.value);
+          ratingInput.value = currentRating;
+          updateStars(currentRating);
+          // Micro-interaction pop
+          gsap.fromTo(star, { scale: 1.4 }, { scale: 1, duration: 0.4, ease: "back.out(2)" });
+        });
+      });
+
+      // Form Submission & Instant UI Paint (Supabase Mock)
+      if(reviewForm) {
+        reviewForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          
+          // 1. Construct Unified Local Client Data Payload
+          const name = document.getElementById("reviewer-name").value;
+          const message = document.getElementById("reviewer-message").value;
+          const rating = parseInt(ratingInput.value);
+          const timestamp = new Date().toISOString();
+          
+          const payload = { name, rating, message, timestamp };
+          console.log("Supabase Handshake Payload Prepared:", payload);
+          
+          // 2. Generate Stars HTML for new card
+          let starsHtml = "";
+          for(let i = 0; i < 5; i++) {
+            starsHtml += `<i class="fa-solid fa-star ${i < rating ? 'text-yellow-400' : 'text-neutral-300'}"></i>`;
+          }
+
+          // 3. Construct New Testimonial Card Structure
+          const newCard = document.createElement("div");
+          newCard.className = "testimonial-card liquid-glass p-8 md:p-10 flex flex-col justify-between relative overflow-visible hardware-layer group";
+          newCard.innerHTML = `
+            <div class="absolute top-4 right-6 text-neutral-200/50 text-8xl font-montserrat font-black select-none pointer-events-none">“</div>
+            <div class="hover-glow-blob absolute w-48 h-48 rounded-full bg-gradient-to-tr from-dragonfruit/10 to-cosmic/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 select-none transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-green-500 text-xl border border-green-100 float-accent-left absolute -left-6 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+              <i class="fa-solid fa-leaf"></i>
+            </div>
+            <div class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-yellow-500 text-lg border border-yellow-100 float-accent-right absolute -right-6 top-1/3 z-20 pointer-events-none">
+              <i class="fa-solid fa-lemon"></i>
+            </div>
+            <div class="mb-8 relative z-10">
+              <div class="flex gap-1 text-yellow-400 mb-6">${starsHtml}</div>
+              <p class="font-jakarta text-neutral-700 text-xl leading-relaxed italic">"${message}"</p>
+            </div>
+            <div class="flex items-center gap-4 relative z-10">
+              <div class="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center font-jakarta font-bold text-neutral-700">
+                <i class="fa-solid fa-user text-neutral-500"></i>
+              </div>
+              <div>
+                <p class="font-jakarta text-sm font-bold text-neutral-950">${name}</p>
+              </div>
+            </div>
+          `;
+
+          // 4. Append to End of Carousel & Animate In
+          if(testimonialTrack) {
+            testimonialTrack.appendChild(newCard);
+            
+            gsap.fromTo(newCard, { 
+              opacity: 0, 
+              x: 40, 
+              scale: 0.95 
+            }, { 
+              opacity: 1, 
+              x: 0, 
+              scale: 1, 
+              duration: 0.8, 
+              ease: "back.out(1.2)",
+              delay: 0.2
+            });
+
+            // Scroll to the absolute end elegantly
+            setTimeout(() => {
+              testimonialTrack.scrollTo({ left: testimonialTrack.scrollWidth, behavior: 'smooth' });
+            }, 100);
+          }
+
+          // Bind 3D tilt to the newly injected card
+          bindTiltEffect(newCard);
+
+          // 5. Cleanup & Close
+          closeReviewModal();
+          reviewForm.reset();
+          currentRating = 5;
+          updateStars(currentRating);
         });
       }
 
@@ -977,7 +1591,7 @@
       // PRECISE LIQUID GLASS LIFT INTERACTIVE LISTENERS
       // Strictly linear lift vectors (No rotation/tilts)
       // ==========================================
-      const glassElements = document.querySelectorAll(".liquid-glass:not(.testimonial-card)");
+      const glassElements = document.querySelectorAll(".liquid-glass:not(.testimonial-card):not(.modal-card)");
 
       glassElements.forEach((card) => {
         card.addEventListener("mouseenter", () => {
