@@ -83,7 +83,7 @@
       backdrop-filter: blur(45px);
       -webkit-backdrop-filter: blur(45px);
       box-shadow: 0 15px 45px rgba(0, 82, 255, 0.02), inset 0 1px 2px rgba(255, 255, 255, 0.95);
-      border-radius: 28px; /* Slightly reduced radius for compact fit */
+      border-radius: 28px;
       transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
                   border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -116,11 +116,8 @@
       transform: scale(1.05);
     }
 
-    /* ==========================================================================
-       MOBILE ONLY OVERRIDES (Strictly matches Page 1 DNA & Unlocks Scrolling)
-       ========================================================================== */
+    /* Mobile Hardened Spacing & Symmetrical Alignments */
     @media (max-width: 768px) {
-      /* UNLOCK MOBILE SCROLLING (Overrides desktop h-screen lock) */
       body {
         height: auto !important;
         overflow-y: auto !important;
@@ -130,27 +127,23 @@
       main {
         height: auto !important;
         display: block !important;
-        padding-top: 6rem !important; /* Match Page 1 hero padding */
+        padding-top: 6rem !important;
       }
-
-      /* Header Nav Compressions */
       header nav a,
       header nav button {
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
       }
-
-      /* Plans Hero Section (Match Page 1) */
       #plans-hero {
         padding-top: 2rem !important;
         padding-bottom: 1.5rem !important;
       }
       #plans-headline {
-        font-size: clamp(14px, 4.5vw, 22px) !important; /* Scaled to fit single line */
+        font-size: clamp(14px, 4.5vw, 22px) !important;
         line-height: 1.25 !important;
         margin-bottom: 1rem !important;
-        white-space: nowrap !important; /* FORCED SINGLE LINE */
+        white-space: nowrap !important;
       }
       #plans-desc {
         font-size: clamp(10px, 3vw, 13px) !important;
@@ -158,8 +151,6 @@
         padding: 0 !important;
         margin-bottom: 1.5rem !important;
       }
-
-      /* Plans Grid & Cards Compression (Match Page 1) */
       #plans-grid {
         gap: 1rem !important;
         padding: 0 1rem !important;
@@ -180,8 +171,6 @@
         line-height: 1.5 !important;
         margin-bottom: 1rem !important;
       }
-      
-      /* Matrix & Tags - Strict Single Line with Horizontal Swipe for Mobile */
       .matrix-container, .tags-container {
         gap: 0.5rem !important;
         flex-wrap: nowrap !important;
@@ -198,15 +187,13 @@
         font-size: 10px !important;
         padding: 0.5rem 0.75rem !important;
         border-radius: 8px !important;
-        flex: 0 0 auto !important; /* Prevents squishing */
+        flex: 0 0 auto !important;
       }
       .tag-pill {
         font-size: 8px !important;
         padding: 0.35rem 0.6rem !important;
-        flex: 0 0 auto !important; /* Prevents squishing */
+        flex: 0 0 auto !important;
       }
-
-      /* Price & Action Button (Match Page 1) */
       .price-flag {
         font-size: 14px !important;
         margin-top: 1rem !important;
@@ -216,8 +203,6 @@
         font-size: 11px !important;
         padding: 0.75rem 1.5rem !important;
       }
-
-      /* Bottom Banner & Tagline */
       #plans-banner {
         padding: 0.75rem 0 !important;
       }
@@ -229,8 +214,8 @@
         margin-bottom: 2rem !important;
       }
       #plans-tagline h2 {
-        font-size: clamp(11px, 3.5vw, 16px) !important; /* Scaled to fit single line */
-        white-space: nowrap !important; /* FORCED SINGLE LINE */
+        font-size: clamp(11px, 3.5vw, 16px) !important;
+        white-space: nowrap !important;
       }
     }
   </style>
@@ -247,7 +232,7 @@
   </div>
 
   <!-- ==========================================
-       NAV FLOATING TRAY
+       NAV FLOATING TRAY (ROUTED)
        ========================================== -->
   <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-0 flex justify-center">
     <nav class="w-full max-w-4xl px-6 py-3 flex items-center justify-between rounded-full bg-white/45 border border-white/80 backdrop-blur-[30px] shadow-[0_10px_35px_rgba(0,0,0,0.02)] transition-all duration-300">
@@ -260,7 +245,7 @@
         <a href="index.html#testimonials" class="hover:text-dragonfruit transition-colors">Testimonials</a>
       </div>
       <div>
-        <a href="#plans-grid" class="px-4 py-2 rounded-full bg-neutral-900 text-white font-jakarta text-[10px] font-bold tracking-wider uppercase hover:bg-neutral-800 transition-all duration-300 hover:scale-105 mobile-single-line">
+        <a href="plans.html" class="px-4 py-2 rounded-full bg-neutral-900 text-white font-jakarta text-[10px] font-bold tracking-wider uppercase hover:bg-neutral-800 transition-all duration-300 hover:scale-105 mobile-single-line">
           Get Started
         </a>
       </div>
@@ -277,7 +262,6 @@
          ========================================== -->
     <section id="plans-hero" class="relative pb-4 px-6 z-30 flex flex-col items-center text-center">
       <div class="max-w-4xl mx-auto hardware-layer">
-        <!-- Headline forced to single line on desktop -->
         <h1 id="plans-headline" class="font-montserrat font-black text-2xl md:text-3xl lg:text-4xl text-neutral-900 tracking-tight mb-2 uppercase md:whitespace-nowrap">
           📋 Choose Your Meal Plan
         </h1>
@@ -303,7 +287,6 @@
               A balanced meal plan packed with essential nutrition, perfect for weight management and healthy everyday eating.
             </p>
             
-            <!-- Interactive Amount Matrix -->
             <div class="mb-3">
               <p class="font-jakarta text-[9px] md:text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5">Select Meals</p>
               <div class="matrix-container flex flex-wrap w-full gap-1 md:gap-1.5">
@@ -314,23 +297,21 @@
               </div>
             </div>
 
-            <!-- Target Tags -->
             <div class="tags-container flex flex-wrap w-full gap-1 md:gap-1.5 mb-3">
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">Weight Loss</span>
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">Healthy Lifestyle</span>
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">Busy Professionals</span>
             </div>
 
-            <!-- Price Flag -->
             <div class="price-flag font-montserrat font-black text-base md:text-lg text-neutral-900 mb-3">
               Starting from <span class="bg-gradient-to-r from-dragonfruit to-amethyst bg-clip-text text-transparent">₹999</span>
             </div>
 
-            <!-- Action Button -->
-            <button class="plan-action-btn group/btn relative w-full py-2.5 md:py-3 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden">
+            <!-- ROUTED TO MENU.HTML -->
+            <a href="menu.html" class="plan-action-btn group/btn relative w-full py-2.5 md:py-3 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden inline-block text-center">
               <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[marquee_2s_infinite]"></span>
               [ Choose Plan → ]
-            </button>
+            </a>
           </div>
         </div>
 
@@ -344,7 +325,6 @@
               High-quality protein meals with fresh chicken and eggs, designed to support fat loss while keeping you full and energized.
             </p>
             
-            <!-- Interactive Amount Matrix -->
             <div class="mb-3">
               <p class="font-jakarta text-[9px] md:text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5">Select Meals</p>
               <div class="matrix-container flex flex-wrap w-full gap-1 md:gap-1.5">
@@ -355,23 +335,21 @@
               </div>
             </div>
 
-            <!-- Target Tags -->
             <div class="tags-container flex flex-wrap w-full gap-1 md:gap-1.5 mb-3">
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">Weight Loss</span>
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">High Protein</span>
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">Active Lifestyle</span>
             </div>
 
-            <!-- Price Flag -->
             <div class="price-flag font-montserrat font-black text-base md:text-lg text-neutral-900 mb-3">
               Starting from <span class="bg-gradient-to-r from-dragonfruit to-amethyst bg-clip-text text-transparent">₹1,169</span>
             </div>
 
-            <!-- Action Button -->
-            <button class="plan-action-btn group/btn relative w-full py-2.5 md:py-3 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden">
+            <!-- ROUTED TO MENU.HTML -->
+            <a href="menu.html" class="plan-action-btn group/btn relative w-full py-2.5 md:py-3 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden inline-block text-center">
               <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[marquee_2s_infinite]"></span>
               [ Choose Plan → ]
-            </button>
+            </a>
           </div>
         </div>
 
@@ -385,7 +363,6 @@
               Protein-rich meals with higher calories and balanced macros to support strength, recovery, and lean muscle growth.
             </p>
             
-            <!-- Interactive Amount Matrix -->
             <div class="mb-3">
               <p class="font-jakarta text-[9px] md:text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5">Select Meals</p>
               <div class="matrix-container flex flex-wrap w-full gap-1 md:gap-1.5">
@@ -396,23 +373,21 @@
               </div>
             </div>
 
-            <!-- Target Tags -->
             <div class="tags-container flex flex-wrap w-full gap-1 md:gap-1.5 mb-3">
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">Muscle Gain</span>
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">Gym Training</span>
               <span class="tag-pill flex-1 text-center bg-neutral-900/5 text-neutral-700 font-jakarta text-[8px] lg:text-[9px] font-bold uppercase tracking-wider py-1 rounded-md whitespace-nowrap overflow-hidden text-ellipsis">Performance Nutrition</span>
             </div>
 
-            <!-- Price Flag -->
             <div class="price-flag font-montserrat font-black text-base md:text-lg text-neutral-900 mb-3">
               Starting from <span class="bg-gradient-to-r from-dragonfruit to-amethyst bg-clip-text text-transparent">₹1,349</span>
             </div>
 
-            <!-- Action Button -->
-            <button class="plan-action-btn group/btn relative w-full py-2.5 md:py-3 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden">
+            <!-- ROUTED TO MENU.HTML -->
+            <a href="menu.html" class="plan-action-btn group/btn relative w-full py-2.5 md:py-3 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden inline-block text-center">
               <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[marquee_2s_infinite]"></span>
               [ Choose Plan → ]
-            </button>
+            </a>
           </div>
         </div>
 
@@ -423,7 +398,6 @@
          DYNAMIC FRAMEWORK SUMMARY BOTTOM BAR
          ========================================== -->
     <section class="relative z-30 w-full mt-auto">
-      <!-- Marquee Banner -->
       <div id="plans-banner" class="w-full py-2.5 border-y border-neutral-100 bg-white/40 backdrop-blur-sm overflow-hidden select-none">
         <div class="flex whitespace-nowrap overflow-hidden">
           <div class="animate-marquee flex items-center gap-12 font-jakarta font-bold text-[10px] md:text-xs tracking-widest text-neutral-500 uppercase">
@@ -445,7 +419,6 @@
         </div>
       </div>
 
-      <!-- Core Tagline -->
       <div id="plans-tagline" class="text-center py-4 px-6">
         <h2 class="font-montserrat font-black text-lg md:text-xl lg:text-2xl tracking-widest text-neutral-900 uppercase opacity-80">
           Eat Clean. <span class="text-dragonfruit">Stay Fit.</span> Live Better.
@@ -476,9 +449,6 @@
     document.addEventListener("DOMContentLoaded", () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // ==========================================
-      // PHYSICALLY ALIGNED CURSOR LERP ENGINE (Z-0)
-      // ==========================================
       const blobPink = document.getElementById("blob-pink");
       const blobBlue = document.getElementById("blob-blue");
       const blobPurple = document.getElementById("blob-purple");
@@ -507,10 +477,8 @@
       function renderAmbientMesh() {
         mouseX += (targetX - mouseX) * 0.05;
         mouseY += (targetY - mouseY) * 0.05;
-
         velocityX = mouseX - lastMouseX;
         velocityY = mouseY - lastMouseY;
-        
         lastMouseX = mouseX;
         lastMouseY = mouseY;
 
@@ -518,192 +486,67 @@
         const deformFactor = 1 + Math.min(velocityMag * 0.005, 0.45);
         const rotationAngle = Math.min(velocityMag * 0.5, 45);
 
-        gsap.set(blobPink, {
-          x: mouseX * 0.25 - (window.innerWidth * 0.1),
-          y: mouseY * 0.25 - (window.innerHeight * 0.1),
-          scaleX: deformFactor,
-          scaleY: 1 / deformFactor,
-          rotation: rotationAngle,
-          force3D: true
-        });
-
-        gsap.set(blobBlue, {
-          x: -mouseX * 0.15 + (window.innerWidth * 0.05),
-          y: -mouseY * 0.15 + (window.innerHeight * 0.05),
-          scaleX: 1 / deformFactor,
-          scaleY: deformFactor,
-          rotation: -rotationAngle * 0.5,
-          force3D: true
-        });
-
-        gsap.set(blobPurple, {
-          x: mouseX * 0.1 - (window.innerWidth * 0.05),
-          y: -mouseY * 0.1 + (window.innerHeight * 0.1),
-          scale: deformFactor * 0.95,
-          rotation: rotationAngle * 1.2,
-          force3D: true
-        });
+        gsap.set(blobPink, { x: mouseX * 0.25 - (window.innerWidth * 0.1), y: mouseY * 0.25 - (window.innerHeight * 0.1), scaleX: deformFactor, scaleY: 1 / deformFactor, rotation: rotationAngle, force3D: true });
+        gsap.set(blobBlue, { x: -mouseX * 0.15 + (window.innerWidth * 0.05), y: -mouseY * 0.15 + (window.innerHeight * 0.05), scaleX: 1 / deformFactor, scaleY: deformFactor, rotation: -rotationAngle * 0.5, force3D: true });
+        gsap.set(blobPurple, { x: mouseX * 0.1 - (window.innerWidth * 0.05), y: -mouseY * 0.1 + (window.innerHeight * 0.1), scale: deformFactor * 0.95, rotation: rotationAngle * 1.2, force3D: true });
 
         requestAnimationFrame(renderAmbientMesh);
       }
       renderAmbientMesh();
 
-      // ==========================================
-      // PRECISE INTRO ENTRANCE TIMELINE
-      // ==========================================
       const masterTimeline = gsap.timeline();
-
       gsap.set("header nav", { opacity: 0, y: -80 });
       gsap.set("#plans-headline", { opacity: 0, y: 30 });
       gsap.set("#plans-desc", { opacity: 0, y: 30 });
       gsap.set(".plan-card", { opacity: 0, y: 60, scale: 0.95 });
 
-      masterTimeline.to("header nav", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power4.out"
-      })
-      .to("#plans-headline", {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        ease: "power3.out"
-      }, "-=0.8")
-      .to("#plans-desc", {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        ease: "power3.out"
-      }, "-=0.6")
-      .to(".plan-card", {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "back.out(1.2)"
-      }, "-=0.5");
+      masterTimeline.to("header nav", { opacity: 1, y: 0, duration: 1.2, ease: "power4.out" })
+      .to("#plans-headline", { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }, "-=0.8")
+      .to("#plans-desc", { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }, "-=0.6")
+      .to(".plan-card", { opacity: 1, y: 0, scale: 1, duration: 1.2, stagger: 0.15, ease: "back.out(1.2)" }, "-=0.5");
 
-      // ==========================================
-      // 3D CURSOR TILT PHYSICS (MOBILE & DESKTOP)
-      // ==========================================
       function bindTiltEffect(card) {
         gsap.set(card, { transformPerspective: 1000 });
-
         card.addEventListener("pointermove", (e) => {
           const rect = card.getBoundingClientRect();
           const mX = e.clientX - rect.left;
           const mY = e.clientY - rect.top;
-
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
           const tiltX = ((mY - centerY) / centerY) * -8; 
           const tiltY = ((mX - centerX) / centerX) * 8;
-
-          gsap.to(card, {
-            rotateX: tiltX,
-            rotateY: tiltY,
-            ease: "power2.out",
-            duration: 0.5,
-            overwrite: "auto"
-          });
+          gsap.to(card, { rotateX: tiltX, rotateY: tiltY, ease: "power2.out", duration: 0.5, overwrite: "auto" });
         });
-
         card.addEventListener("pointerleave", () => {
-          gsap.to(card, {
-            rotateX: 0,
-            rotateY: 0,
-            ease: "power4.out",
-            duration: 0.8,
-            overwrite: "auto"
-          });
+          gsap.to(card, { rotateX: 0, rotateY: 0, ease: "power4.out", duration: 0.8, overwrite: "auto" });
         });
       }
 
       document.querySelectorAll(".plan-card").forEach(bindTiltEffect);
 
-      // ==========================================
-      // PRECISE LIQUID GLASS LIFT INTERACTIVE LISTENERS
-      // ==========================================
       const glassElements = document.querySelectorAll(".plan-card");
-
       glassElements.forEach((card) => {
-        card.addEventListener("mouseenter", () => {
-          gsap.to(card, {
-            scale: 1.015,
-            y: -8,
-            boxShadow: "0 30px 60px rgba(0, 82, 255, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.98)",
-            borderColor: "rgba(255, 255, 255, 0.95)",
-            duration: 0.4,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        });
-
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, {
-            scale: 1.0,
-            y: 0,
-            boxShadow: "0 15px 45px rgba(0, 82, 255, 0.02), inset 0 1px 2px rgba(255, 255, 255, 0.95)",
-            borderColor: "rgba(255, 255, 255, 0.8)",
-            duration: 0.6,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        });
+        card.addEventListener("mouseenter", () => { gsap.to(card, { scale: 1.015, y: -8, boxShadow: "0 30px 60px rgba(0, 82, 255, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.98)", borderColor: "rgba(255, 255, 255, 0.95)", duration: 0.4, ease: "power2.out", overwrite: "auto" }); });
+        card.addEventListener("mouseleave", () => { gsap.to(card, { scale: 1.0, y: 0, boxShadow: "0 15px 45px rgba(0, 82, 255, 0.02), inset 0 1px 2px rgba(255, 255, 255, 0.95)", borderColor: "rgba(255, 255, 255, 0.8)", duration: 0.6, ease: "power2.out", overwrite: "auto" }); });
       });
 
-      // ==========================================
-      // INTERACTIVE MATRIX BUTTON LOGIC
-      // ==========================================
       const matrixContainers = document.querySelectorAll('.matrix-container');
-      
       matrixContainers.forEach(container => {
         const buttons = container.querySelectorAll('.matrix-btn');
         buttons.forEach(btn => {
           btn.addEventListener('click', (e) => {
-            // Prevent event from bubbling up and triggering card tilt weirdness
             e.stopPropagation();
-            
-            // Remove active class from all siblings
-            buttons.forEach(b => {
-              b.classList.remove('active');
-              // Reset styles for inactive
-              gsap.to(b, { scale: 1, duration: 0.2 });
-            });
-            
-            // Add active class to clicked button
+            buttons.forEach(b => { b.classList.remove('active'); gsap.to(b, { scale: 1, duration: 0.2 }); });
             btn.classList.add('active');
-            
-            // Micro-interaction pop
             gsap.fromTo(btn, { scale: 0.95 }, { scale: 1.05, duration: 0.4, ease: "back.out(2)" });
           });
         });
       });
 
-      // ==========================================
-      // CONVERSION CAP ACTION BUTTON HOVER MECHANICS
-      // ==========================================
       const conversionButtons = document.querySelectorAll(".group\\/btn");
       conversionButtons.forEach((btn) => {
-        btn.addEventListener("mouseenter", () => {
-          gsap.to(btn, {
-            scale: 1.04,
-            duration: 0.6,
-            ease: "elastic.out(1.2, 0.4)",
-            overwrite: "auto"
-          });
-        });
-
-        btn.addEventListener("mouseleave", () => {
-          gsap.to(btn, {
-            scale: 1.0,
-            duration: 0.4,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        });
+        btn.addEventListener("mouseenter", () => { gsap.to(btn, { scale: 1.04, duration: 0.6, ease: "elastic.out(1.2, 0.4)", overwrite: "auto" }); });
+        btn.addEventListener("mouseleave", () => { gsap.to(btn, { scale: 1.0, duration: 0.4, ease: "power2.out", overwrite: "auto" }); });
       });
     });
   </script>

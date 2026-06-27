@@ -287,7 +287,7 @@
   </div>
 
   <!-- ==========================================
-       NAV FLOATING TRAY
+       NAV FLOATING TRAY (ROUTED)
        ========================================== -->
   <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-0 flex justify-center">
     <nav class="w-full max-w-4xl px-6 py-3 flex items-center justify-between rounded-full bg-white/45 border border-white/80 backdrop-blur-[30px] shadow-[0_10px_35px_rgba(0,0,0,0.02)] transition-all duration-300">
@@ -300,7 +300,7 @@
         <a href="index.html#testimonials" class="hover:text-dragonfruit transition-colors">Testimonials</a>
       </div>
       <div>
-        <a href="#cta-gate" class="px-4 py-2 rounded-full bg-neutral-900 text-white font-jakarta text-[10px] font-bold tracking-wider uppercase hover:bg-neutral-800 transition-all duration-300 hover:scale-105 mobile-single-line">
+        <a href="plans.html" class="px-4 py-2 rounded-full bg-neutral-900 text-white font-jakarta text-[10px] font-bold tracking-wider uppercase hover:bg-neutral-800 transition-all duration-300 hover:scale-105 mobile-single-line">
           Get Started
         </a>
       </div>
@@ -439,10 +439,11 @@
           Choose your preferred meals and continue to complete your subscription.
         </p>
       </div>
-      <button class="cta-btn group/btn relative inline-block py-2 px-8 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden mobile-single-line">
+      <!-- ROUTED TO CHECKOUT.HTML -->
+      <a href="checkout.html" class="cta-btn group/btn relative inline-block py-2 px-8 rounded-full bg-gradient-to-r from-dragonfruit via-amethyst to-cosmic text-white font-montserrat font-black text-xs tracking-widest uppercase shadow-[0_10px_25px_rgba(255,42,133,0.25)] hover:shadow-[0_15px_35px_rgba(0,82,255,0.35)] transition-all duration-300 overflow-hidden mobile-single-line text-center">
         <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[marquee_2s_infinite]"></span>
         [ Continue → ]
-      </button>
+      </a>
     </section>
 
   </main>
@@ -468,9 +469,6 @@
     document.addEventListener("DOMContentLoaded", () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // ==========================================
-      // PHYSICALLY ALIGNED CURSOR LERP ENGINE (Z-0)
-      // ==========================================
       const blobPink = document.getElementById("blob-pink");
       const blobBlue = document.getElementById("blob-blue");
       const blobPurple = document.getElementById("blob-purple");
@@ -499,10 +497,8 @@
       function renderAmbientMesh() {
         mouseX += (targetX - mouseX) * 0.05;
         mouseY += (targetY - mouseY) * 0.05;
-
         velocityX = mouseX - lastMouseX;
         velocityY = mouseY - lastMouseY;
-        
         lastMouseX = mouseX;
         lastMouseY = mouseY;
 
@@ -510,41 +506,15 @@
         const deformFactor = 1 + Math.min(velocityMag * 0.005, 0.45);
         const rotationAngle = Math.min(velocityMag * 0.5, 45);
 
-        gsap.set(blobPink, {
-          x: mouseX * 0.25 - (window.innerWidth * 0.1),
-          y: mouseY * 0.25 - (window.innerHeight * 0.1),
-          scaleX: deformFactor,
-          scaleY: 1 / deformFactor,
-          rotation: rotationAngle,
-          force3D: true
-        });
-
-        gsap.set(blobBlue, {
-          x: -mouseX * 0.15 + (window.innerWidth * 0.05),
-          y: -mouseY * 0.15 + (window.innerHeight * 0.05),
-          scaleX: 1 / deformFactor,
-          scaleY: deformFactor,
-          rotation: -rotationAngle * 0.5,
-          force3D: true
-        });
-
-        gsap.set(blobPurple, {
-          x: mouseX * 0.1 - (window.innerWidth * 0.05),
-          y: -mouseY * 0.1 + (window.innerHeight * 0.1),
-          scale: deformFactor * 0.95,
-          rotation: rotationAngle * 1.2,
-          force3D: true
-        });
+        gsap.set(blobPink, { x: mouseX * 0.25 - (window.innerWidth * 0.1), y: mouseY * 0.25 - (window.innerHeight * 0.1), scaleX: deformFactor, scaleY: 1 / deformFactor, rotation: rotationAngle, force3D: true });
+        gsap.set(blobBlue, { x: -mouseX * 0.15 + (window.innerWidth * 0.05), y: -mouseY * 0.15 + (window.innerHeight * 0.05), scaleX: 1 / deformFactor, scaleY: deformFactor, rotation: -rotationAngle * 0.5, force3D: true });
+        gsap.set(blobPurple, { x: mouseX * 0.1 - (window.innerWidth * 0.05), y: -mouseY * 0.1 + (window.innerHeight * 0.1), scale: deformFactor * 0.95, rotation: rotationAngle * 1.2, force3D: true });
 
         requestAnimationFrame(renderAmbientMesh);
       }
       renderAmbientMesh();
 
-      // ==========================================
-      // PRECISE INTRO ENTRANCE TIMELINE
-      // ==========================================
       const masterTimeline = gsap.timeline();
-
       gsap.set("header nav", { opacity: 0, y: -80 });
       gsap.set("#menu-headline", { opacity: 0, y: 30 });
       gsap.set("#menu-desc", { opacity: 0, y: 30 });
@@ -552,158 +522,52 @@
       gsap.set(".swipe-container", { opacity: 0, y: 20 });
       gsap.set("#cta-gate", { opacity: 0, y: 20 });
 
-      masterTimeline.to("header nav", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power4.out"
-      })
-      .to("#menu-headline", {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        ease: "power3.out"
-      }, "-=0.8")
-      .to("#menu-desc", {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        ease: "power3.out"
-      }, "-=0.6")
-      .to(".menu-card", {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "back.out(1.2)"
-      }, "-=0.5")
-      .to(".swipe-container", {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out"
-      }, "-=0.6")
-      .to("#cta-gate", {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.4");
+      masterTimeline.to("header nav", { opacity: 1, y: 0, duration: 1.2, ease: "power4.out" })
+      .to("#menu-headline", { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }, "-=0.8")
+      .to("#menu-desc", { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }, "-=0.6")
+      .to(".menu-card", { opacity: 1, y: 0, scale: 1, duration: 1.2, stagger: 0.15, ease: "back.out(1.2)" }, "-=0.5")
+      .to(".swipe-container", { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" }, "-=0.6")
+      .to("#cta-gate", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4");
 
-      // ==========================================
-      // 3D CURSOR TILT PHYSICS (MOBILE & DESKTOP)
-      // ==========================================
       function bindTiltEffect(card) {
         gsap.set(card, { transformPerspective: 1000 });
-
         card.addEventListener("pointermove", (e) => {
           const rect = card.getBoundingClientRect();
           const mX = e.clientX - rect.left;
           const mY = e.clientY - rect.top;
-
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
           const tiltX = ((mY - centerY) / centerY) * -8; 
           const tiltY = ((mX - centerX) / centerX) * 8;
-
-          gsap.to(card, {
-            rotateX: tiltX,
-            rotateY: tiltY,
-            ease: "power2.out",
-            duration: 0.5,
-            overwrite: "auto"
-          });
+          gsap.to(card, { rotateX: tiltX, rotateY: tiltY, ease: "power2.out", duration: 0.5, overwrite: "auto" });
         });
-
         card.addEventListener("pointerleave", () => {
-          gsap.to(card, {
-            rotateX: 0,
-            rotateY: 0,
-            ease: "power4.out",
-            duration: 0.8,
-            overwrite: "auto"
-          });
+          gsap.to(card, { rotateX: 0, rotateY: 0, ease: "power4.out", duration: 0.8, overwrite: "auto" });
         });
       }
 
       document.querySelectorAll(".menu-card").forEach(bindTiltEffect);
 
-      // ==========================================
-      // PRECISE LIQUID GLASS LIFT INTERACTIVE LISTENERS
-      // ==========================================
       const glassElements = document.querySelectorAll(".menu-card");
-
       glassElements.forEach((card) => {
-        card.addEventListener("mouseenter", () => {
-          gsap.to(card, {
-            scale: 1.015,
-            y: -8,
-            boxShadow: "0 30px 60px rgba(0, 82, 255, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.98)",
-            borderColor: "rgba(255, 255, 255, 0.95)",
-            duration: 0.4,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        });
-
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, {
-            scale: 1.0,
-            y: 0,
-            boxShadow: "0 15px 45px rgba(0, 82, 255, 0.02), inset 0 1px 2px rgba(255, 255, 255, 0.95)",
-            borderColor: "rgba(255, 255, 255, 0.8)",
-            duration: 0.6,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        });
+        card.addEventListener("mouseenter", () => { gsap.to(card, { scale: 1.015, y: -8, boxShadow: "0 30px 60px rgba(0, 82, 255, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.98)", borderColor: "rgba(255, 255, 255, 0.95)", duration: 0.4, ease: "power2.out", overwrite: "auto" }); });
+        card.addEventListener("mouseleave", () => { gsap.to(card, { scale: 1.0, y: 0, boxShadow: "0 15px 45px rgba(0, 82, 255, 0.02), inset 0 1px 2px rgba(255, 255, 255, 0.95)", borderColor: "rgba(255, 255, 255, 0.8)", duration: 0.6, ease: "power2.out", overwrite: "auto" }); });
       });
 
-      // ==========================================
-      // INTERACTIVE PREFERENCE BUTTON LOGIC
-      // ==========================================
       const prefBtns = document.querySelectorAll('.pref-btn');
-      
       prefBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          
-          // Clear active states
-          prefBtns.forEach(b => {
-            b.classList.remove('glow-active');
-            gsap.to(b, { scale: 1, duration: 0.2 });
-          });
-          
-          // Set new active state
+          prefBtns.forEach(b => { b.classList.remove('glow-active'); gsap.to(b, { scale: 1, duration: 0.2 }); });
           btn.classList.add('glow-active');
           gsap.fromTo(btn, { scale: 0.95 }, { scale: 1.05, duration: 0.4, ease: "back.out(2)" });
         });
       });
 
-      // ==========================================
-      // CONVERSION CAP ACTION BUTTON HOVER MECHANICS
-      // ==========================================
       const conversionButtons = document.querySelectorAll(".group\\/btn");
       conversionButtons.forEach((btn) => {
-        btn.addEventListener("mouseenter", () => {
-          gsap.to(btn, {
-            scale: 1.04,
-            duration: 0.6,
-            ease: "elastic.out(1.2, 0.4)",
-            overwrite: "auto"
-          });
-        });
-
-        btn.addEventListener("mouseleave", () => {
-          gsap.to(btn, {
-            scale: 1.0,
-            duration: 0.4,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        });
+        btn.addEventListener("mouseenter", () => { gsap.to(btn, { scale: 1.04, duration: 0.6, ease: "elastic.out(1.2, 0.4)", overwrite: "auto" }); });
+        btn.addEventListener("mouseleave", () => { gsap.to(btn, { scale: 1.0, duration: 0.4, ease: "power2.out", overwrite: "auto" }); });
       });
     });
   </script>
